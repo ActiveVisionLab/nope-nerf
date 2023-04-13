@@ -1,0 +1,15 @@
+depth:
+  type: None
+pose:
+  learn_pose: True
+dataloading:
+  path: data/Tanks
+  scene: ['Family']
+  customized_focal: False
+  random_ref: 1
+  sample_rate: 2
+training:
+  out_dir:  out/Tanks/Family
+  auto_scheduler: True
+extract_images:
+  resolution: [540, 960]

@@ -1,0 +1,18 @@
+depth:
+  type: None
+pose:
+  learn_pose: True
+rendering:
+  depth_range: [0.0, 1.0]
+  dist_alpha: True
+  sample_option: ndc
+dataloading:
+  path: data/nerf_llff_data
+  scene: ['fern']
+  random_ref: 1
+  resize_factor: 4
+training:
+  out_dir:  out/llff/fern
+  vis_resolution: [75, 100]
+extract_images:
+  resolution: [756, 1008]

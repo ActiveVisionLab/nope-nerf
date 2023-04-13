@@ -1,0 +1,9 @@
+depth:
+  type: DPT
+dataloading:
+  path: data/nerf_llff_data
+  scene: ['fern']
+  resize_factor: 
+  generate_dpt: True
+training:
+  mode: 'all'

@@ -1,0 +1,14 @@
+depth:
+  type: None
+pose:
+  learn_pose: True
+dataloading:
+  path: data/Tanks
+  scene: ['Ballroom']
+  customized_focal: False
+  random_ref: 1
+training:
+  out_dir:  out/Tanks/Ballroom
+  auto_scheduler: True
+extract_images:
+  resolution: [540, 960]

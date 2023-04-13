@@ -1,0 +1,150 @@
+model:
+  num_layers: 8
+  freeze_network: False
+  use_image_feature: False
+  network_type: official
+  occ_activation: softplus
+  hidden_dim: 256
+  pos_enc_levels: 10
+  dir_enc_levels: 4
+dataloading:
+  dataset_name: any
+  path: 
+  scene: []
+  batchsize: 1
+  n_workers: 1
+  img_size:
+  path:
+  with_depth: False
+  with_mask: False
+  spherify: True
+  customized_poses: False #use poses other than colmap
+  customized_focal: False #use focal other than colmap
+  resize_factor: 
+  depth_net: dpt
+  generate_dpt: False
+  crop_size: 0
+  random_ref: 1
+  norm_depth: False
+  load_colmap_poses: True
+  shuffle: True
+  sample_rate: 8
+
+rendering:
+  type: nope_nerf # changed
+  n_max_network_queries: 64000
+  white_background: False
+  radius: 4.0
+  num_points: 128
+  depth_range: [0.01, 10]
+  dist_alpha: False
+  use_ray_dir: True
+  normalise_ray: True
+  normal_loss: False
+  sample_option: uniform
+  outside_steps: 0
+depth:
+  type: None
+  path: DPT/dpt_hybrid-midas-501f0c75.pt
+  non_negative: True
+  scale: 0.000305
+  shift: 0.1378
+  invert: True
+  freeze: True
+pose:
+  learn_pose: False
+  learn_R: True
+  learn_t: True
+  init_pose: False
+  init_R_only: False
+  learn_focal: False
+  update_focal: True
+  fx_only: False
+  focal_order: 2
+  init_pose_type: gt
+  init_focal_type: gt
+distortion:
+  learn_distortion: True
+  fix_scaleN: True
+  learn_scale: True
+  learn_shift: True
+training:
+  type: nope_nerf
+  load_dir: model.pt
+  load_pose_dir: model_pose.pt
+  load_focal_dir: model_focal.pt
+  load_distortion_dir: model_distortion.pt
+  n_training_points: 1024
+  scheduling_epoch: 10000
+  batch_size: 1
+  learning_rate: 0.001
+  focal_lr: 0.001
+  pose_lr: 0.0005
+  distortion_lr: 0.0005
+  weight_decay: 0.0
+  scheduler_gamma_pose: 0.9
+  scheduler_gamma: 0.9954
+  scheduler_gamma_distortion: 0.9
+  scheduler_gamma_focal: 0.9
+  validate_every: -1
+  visualize_every: 10000
+  eval_pose_every: 1 # epoch
+  eval_img_every: 1 # epoch
+  print_every: 100
+  backup_every: 10000
+  checkpoint_every: 5000
+  rgb_weight: [1.0, 1.0]
+  depth_weight: [0.04, 0.0]
+  weight_dist_2nd_loss: [0.0, 0.0]
+  weight_dist_1st_loss: [0.0, 0.0]
+  pc_weight: [1.0, 0.0]
+  rgb_s_weight: [1.0, 0.0]
+  depth_consistency_weight: [0.0, 0.0]
+  rgb_loss_type: l1
+  depth_loss_type: l1
+  log_scale_shift_per_view: False
+  with_auto_mask: False
+  vis_geo: True
+  vis_resolution: [54, 96]
+  mode: train
+  with_ssim: False
+  use_gt_depth: False
+  load_ckpt_model_only: False 
+  optim: Adam
+  detach_gt_depth: False
+  match_method: dense
+  pc_ratio: 4
+  shift_first: False
+  detach_ref_img: True
+  scheduling_start: 10000
+  auto_scheduler: True
+  length_smooth: 1000
+  patient: 30
+  scale_pcs: True
+  detach_rgbs_scale: False
+  scheduling_mode: 
+  vis_reprojection_every: 5000
+  nearest_limit: 0.01
+  annealing_epochs: 2000 #should be >=0
+extract_images:
+  extraction_dir: extraction
+  N_novel_imgs: 120
+  traj_option: bspline
+  use_learnt_poses: True
+  use_learnt_focal: True
+  resolution:
+  model_file: model.pt
+  model_file_pose: model_pose.pt
+  model_file_focal: model_focal.pt
+  eval_depth: False
+  bspline_degree: 100
+eval_pose:
+  n_points: 1024
+  type: nope_nerf
+  type_to_eval: eval
+  opt_pose_epoch: 1000
+  extraction_dir: extraction
+  init_method: pre
+  opt_eval_lr: 0.001
+
+
