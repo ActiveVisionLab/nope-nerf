@@ -1,6 +1,6 @@
 # NoPe-NeRF: Optimising Neural Radiance Field with No Pose Prior
 
-**[Project Page](https://nope-nerf.active.vision/) | [Arxiv](https://arxiv.org/abs/2212.07388) | [Data](https://www.robots.ox.ac.uk/~wenjing/Tanks.zip)**
+**[Project Page](https://nope-nerf.active.vision/) | [Arxiv](https://arxiv.org/abs/2212.07388) | [Data](https://www.robots.ox.ac.uk/~wenjing/Tanks.zip) | [Pretrained Model](https://www.robots.ox.ac.uk/~wenjing/pretrained_Tanks.zip)**
 
 Wenjing Bian, 
 Zirui Wang, 
