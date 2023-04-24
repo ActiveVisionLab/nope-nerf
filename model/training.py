@@ -202,10 +202,13 @@ class Trainer(object):
             it (int): training iteration
             epoch(int): current number of epochs
             scheduling_start(int): num of epochs to start scheduling
+            out_render_path(str): path to save rendered images
         '''
         weights = {}
         weights_name_list = ['rgb_weight', 'depth_weight', 'pc_weight', 'rgb_s_weight', 'depth_consistency_weight', 'weight_dist_2nd_loss', 'weight_dist_1st_loss']
         weights_list = [self.anneal(getattr(self, w)[0], getattr(self, w)[1], scheduling_start, self.annealing_epochs, epoch) for w in weights_name_list] # loss weights
+        rgb_loss_type = 'l1' if epoch < self.annealing_epochs + scheduling_start else 'l2'
+
         for i, weight in enumerate(weights_list):
             weight_name = weights_name_list[i]
             weights[weight_name] = weight
@@ -224,6 +227,7 @@ class Trainer(object):
         kwargs = dict()
         kwargs['t_list']=self.pose_param_net.get_t()
         kwargs['weights'] = weights
+        kwargs['rgb_loss_type'] = rgb_loss_type
 
        
 

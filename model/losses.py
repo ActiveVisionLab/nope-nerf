@@ -17,7 +17,6 @@ class Loss(nn.Module):
     def __init__(self, cfg=None):
         super().__init__()
         
-        self.rgb_loss_type = cfg['rgb_loss_type']
         self.depth_loss_type = cfg['depth_loss_type']
 
         self.l1_loss = nn.L1Loss(reduction='sum')
@@ -159,11 +158,11 @@ class Loss(nn.Module):
     def forward(self, rgb_pred, rgb_gt,  depth_pred=None, depth_gt=None, 
                 t_list=None, X=None, Y=None,  rgb_pc1=None, 
                 rgb_pc1_proj=None, valid_points=None, 
-                d1_proj=None, d2=None, d2_proj=None, d1=None, weights={}, **kwargs):
+                d1_proj=None, d2=None, d2_proj=None, d1=None, weights={}, rgb_loss_type='l2', **kwargs):
         rgb_gt = rgb_gt.cuda()
         
         if weights['rgb_weight'] != 0.0:
-            rgb_full_loss = self.get_rgb_full_loss(rgb_pred, rgb_gt, self.rgb_loss_type)
+            rgb_full_loss = self.get_rgb_full_loss(rgb_pred, rgb_gt, rgb_loss_type)
         else:
             rgb_full_loss = torch.tensor(0.0).cuda().float()
         if weights['depth_weight'] != 0.0:
