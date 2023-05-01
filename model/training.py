@@ -42,14 +42,6 @@ class Trainer(object):
         self.rendering_technique = cfg['type']
         self.vis_geo = cfg['vis_geo']
 
-        self.pc_weight = cfg['pc_weight']
-        self.rgb_s_weight = cfg['rgb_s_weight']
-        self.rgb_weight = cfg['rgb_weight']
-        self.depth_weight = cfg['depth_weight']
-        self.weight_dist_2nd_loss = cfg['weight_dist_2nd_loss']
-        self.weight_dist_1st_loss = cfg['weight_dist_1st_loss']
-        self.depth_consistency_weight = cfg['depth_consistency_weight']
-
         self.detach_gt_depth = cfg['detach_gt_depth']
         self.pc_ratio = cfg['pc_ratio']
         self.match_method = cfg['match_method']
@@ -321,7 +313,7 @@ class Trainer(object):
             pc1 = transform_to_world(p_pc, d1.view(1, -1, 1), camera_mat)
             pc2 = transform_to_world(p_pc, d2.view(1, -1, 1), camera_mat)
             
-            if self.rgb_s_weight!=0.0:
+            if weights['rgb_s_weight']!=0.0:
                 img1 = F.interpolate(img1, sample_resolution ,mode='bilinear')
                 img2 = F.interpolate(img2, sample_resolution ,mode='bilinear')
                 rgb_pc1 = get_tensor_values(img1, p_pc, mode='bilinear', scale=False, detach=False, detach_p=False, align_corners=True) 
