@@ -53,6 +53,14 @@ class Trainer(object):
         self.nearest_limit = cfg['nearest_limit']
         self.annealing_epochs = cfg['annealing_epochs']
 
+        self.pc_weight = cfg['pc_weight']
+        self.rgb_s_weight = cfg['rgb_s_weight']
+        self.rgb_weight = cfg['rgb_weight']
+        self.depth_weight = cfg['depth_weight']
+        self.weight_dist_2nd_loss = cfg['weight_dist_2nd_loss']
+        self.weight_dist_1st_loss = cfg['weight_dist_1st_loss']
+        self.depth_consistency_weight = cfg['depth_consistency_weight']
+
 
         self.loss = Loss(cfg)
 
