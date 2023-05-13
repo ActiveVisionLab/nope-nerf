@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Nope-NeRF</title>
+		<!-- <link rel="icon" type="image/x-icon" href="/imgs/nope1.png"> -->
+		<!-- Bootstrap core CSS -->
+		
+		<!-- Custom styles for this template -->
+		<link href="css/academicons.css" rel="stylesheet">
+		<link rel="stylesheet" href="/dics.original.css">
+		<script src="/dics.original.js"></script>
+		<link href="css/footer.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="../src/original/dics.original.css">
+		<link rel='stylesheet'
+         href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    	<script src="../src/original/dics.original.js"></script>
+		<link
+		  rel="stylesheet" 
+		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+		  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" 
+		  crossorigin="anonymous">
+		<!-- Custom fonts for this template -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+		<script>
+			document.addEventListener('DOMContentLoaded', domReady);
+	
+			function domReady() {
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[0],
+					textPosition: 'top'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[1],
+					hideTexts: true,
+					textPosition: 'center'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[2]
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[3],
+					linesOrientation: 'vertical',
+					textPosition: 'left',
+					arrayBackgroundColorText: ['#000000', '#FFFFFF'],
+					arrayColorText: ['#FFFFFF', '#000000'],
+					linesColor: 'rgb(0,0,0)'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[4],
+					linesOrientation: 'vertical',
+					textPosition: 'right'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[5],
+					textPosition: 'bottom'
+				});
+	
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[6],
+					filters: ['blur(3px)', 'grayscale(1)', 'sepia(1)', 'saturate(3)']
+				});
+				new Dics({
+					container: document.querySelectorAll('.b-dics')[7],
+					rotate: '45deg'
+				});
+	
+			}
+		</script>
+		<script type="text/javascript">
+			var x = 0;
+			var images = [
+				["imgs/ig_barf.png"
+			, "imgs/ig_nerfmm.png",
+			"imgs/ig_scnerf.png",
+			"imgs/ig_ours.png",
+			"imgs/pose_ig.png"], 
+			["imgs/francis_barf.png",
+			"imgs/francis_nerfmm.png",
+			"imgs/francis_scnerf.png",
+			"imgs/francis_ours.png",
+			"imgs/pose_francis.png"],
+			["imgs/museum_barf.png",
+			"imgs/museum_nerfmm.png",
+			"imgs/museum_scnerf.png",
+			"imgs/museum_ours.png",
+			"imgs/pose_museum.png"],
+			["imgs/family_barf.png",
+			"imgs/family_nerfmm.png",
+			"imgs/family_scnerf.png",
+			"imgs/family_ours.png",
+			"imgs/pose_family.png"],
+			["imgs/ballroom_barf.png",
+			"imgs/ballroom_nerfmm.png",
+			"imgs/ballroom_scnerf.png",
+			"imgs/ballroom_ours.png",
+			"imgs/pose_ballroom.png"],
+			["imgs/church_barf.png",
+			"imgs/church_nerfmm.png",
+			"imgs/church_scnerf.png",
+			"imgs/church_ours.png",
+			"imgs/pose_church.png"],
+			["imgs/barn_barf.png",
+			"imgs/barn_nerfmm.png",
+			"imgs/barn_scnerf.png",
+			"imgs/barn_ours.png",
+			"imgs/pose_barn.png"],
+			["imgs/horse_barf.png",
+			"imgs/horse_nerfmm.png",
+			"imgs/horse_scnerf.png",
+			"imgs/horse_ours.png",
+			"imgs/pose_horse.png"],
+			];
+			function ChangeImage() {
+				x = Math.floor(Math.random() * images.length);
+              	document.getElementById("img1").src = images[x];
+			}
+			function displayNextImages() {
+              	x = (x === images.length - 1) ? 0 : x + 1;
+              	document.getElementById("img1").src = images[x][0];
+				document.getElementById("img2").src = images[x][1];
+				document.getElementById("img3").src = images[x][2];
+				document.getElementById("img4").src = images[x][3];
+				document.getElementById("pose").src = images[x][4];
+          }
+
+			function displayPreviousImages() {
+				x = (x <= 0) ? images.length - 1 : x - 1;
+				document.getElementById("img1").src = images[x][0];
+				document.getElementById("img2").src = images[x][1];
+				document.getElementById("img3").src = images[x][2];
+				document.getElementById("img4").src = images[x][3];
+				document.getElementById("pose").src = images[x][4];
+			}
+			function ChangeImages() {
+				x = Math.floor(Math.random() * images.length);
+              	document.getElementById("img1").src = images[x][0];
+				document.getElementById("img2").src = images[x][1];
+				document.getElementById("img3").src = images[x][2];
+				document.getElementById("img4").src = images[x][3];
+				document.getElementById("pose").src = images[x][4];
+			}
+		</script>
+		
+	</head>
+<body>
+
+<main role="main" class="container", style="max-width: 900px;">
+	    <h1 class="title is-3 publication-title">NoPe-NeRF: Optimising Neural Radiance Field with No Pose Prior</h1>
+	<!-- &#x1F6AB &#129306 &#128581 &#128581;&#8205;&#9792;&#65039 &#x1F6AB-->
+	<div class="col text-center">
+	    <p class="authors">
+		  Wenjing Bian,
+	      Zirui Wang, 
+	      <a href="https://likojack.github.io/kejieli/#/home">Kejie Li</a>,
+		  <a href="https://jwbian.net/">Jiawang Bian</a>,
+	      <a href="http://www.robots.ox.ac.uk/~victor/">Victor Adrian Prisacariu</a><br>
+	      <a href="http://active.vision"> Active Vision Lab</a>,
+	      University of Oxford<br>
+		  CVPR 2023 (Highlight)
+	    </p>
+	</div>
+	<div class="col text-center", style="padding: 20px 0px;">
+	    <a class="btn btn-dark", href="https://arxiv.org/abs/2212.07388" role="button">Arxiv</a>
+		<a class="btn btn-dark" href="#bibtex" role="button">Bibtex</a>
+		<a class="btn btn-dark" href="https://github.com/ActiveVisionLab/nope-nerf/" role="button">Code</a>
+		<!-- <button type="button" class="btn btn-dark" disabled>Code</button> -->
+	</div>
+	<div class="polaroid" style="padding-bottom: 40px">
+		<div style="padding: 0px 0px;", class="center">
+			<div class="b-dics" >
+				<img id="img3" src="imgs/ig_scnerf.png" alt="SC-NeRF">
+				<img id="img2" src="imgs/ig_nerfmm.png" alt="NeRFmm">
+				<img id="img1" src="imgs/ig_barf.png" alt="BARF">
+				<img id="img4" src="imgs/ig_ours.png" alt="Ours">
+			</div>		
+		</div>
+
+		<div class="center" style="padding: 0px 0px;">
+			<img src="imgs/pose_ig.png"  id="pose" alt="poses" style="width:1200px;">
+		</div>
+		<div style="padding: 0px 0px;">
+		<!-- <button type="button" class="btn btn-outline-dark" onclick="ChangeImages()">Change</button> -->
+		<div class="pos_left" >
+		<button type="button" class="btn btn-outline-dark" onclick="displayPreviousImages()">&#10094 Previous</button>
+		</div>
+		<div class="pos_right">
+		<button type="button" class="btn btn-outline-dark" onclick="displayNextImages()">Next &#10095</button>
+		</div>
+	</div>
+	</div>
+	<h2 class="title is-4">Abstract</h2>
+	  <p>
+	    Training a Neural Radiance Field (NeRF) without pre-computed camera poses is challenging. 
+		Recent advances in this direction demonstrate the possibility of jointly optimising a NeRF 
+		and camera poses in forward-facing scenes. However, these methods still face difficulties
+		 during dramatic camera movement. We tackle this challenging problem by incorporating undistorted 
+		 monocular depth priors. These priors are generated by correcting scale and shift parameters during 
+		 training, with which we are then able to constrain the relative poses between consecutive frames. 
+		 This constraint is achieved using our proposed novel loss functions. Experiments on real-world indoor 
+		 and outdoor scenes show that our method can handle challenging camera trajectories and outperforms 
+		 existing methods in terms of novel view rendering quality and pose estimation accuracy.
+	  </p>
+	<h2 class="title is-4">Method Overview</h2>
+	<div style="padding: 20px 0px;", class="center">
+	<img src="imgs/model.gif" alt="Model Overview", class="center">
+	</div>
+	<h2 class="title is-4",  style="padding: 0px 0px;">Pose Estimation</h2>
+	<p>
+		We visualise the  <b style="color: #d62728">estimated pose trajectories </b> of each method against <b style="color: #2ca02c">ground truth trajectories</b>. We also visualised the relative rotation errors 
+		(<b><i>RPE<sub>r</sub></i></b>) for each frame in the image sequence as colour bars at the bottom, where the relative scaling of colour is shown on the right (in degrees).
+	 </p>
+	<div style="height:400px;overflow:scroll;padding: 0px 0px;">
+		<img src="imgs/pose_tanks.jpg" alt="poses"><br>
+		<img src="imgs/pose_scannet.jpg" alt="poses2"><br>
+	</div>
+	<h2 class="title is-4">Novel View Rendering</h2>
+	 <p>
+		We show novel views from a <b>Bezier curve</b> which is fitted to estimated camera poses.
+	 </p>
+	 <div class="row">
+		<div class="column">
+			<video class='center_video' controls autoplay muted loop>
+			<source src="video/v1.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+		</div>
+		<div class="column">
+			<video class='center_video' controls autoplay muted loop>
+			<source src="video/v2.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+		</div>
+	</div>
+	  
+	  </video>
+	
+	  <p style="padding: 20px 0px;">
+		We show novel views from a  <b>spiral curve</b> which is fitted to estimated camera poses.
+	 </p>
+	 <div class="row">
+		<div class="column">
+			<video class='center_video' controls autoplay muted loop>
+			<source src="video/v3.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+		</div>
+		<div class="column">
+		<video class='center_video' controls autoplay muted loop>
+			<source src="video/v4.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+		</video>
+		</div>
+	</div>
+	<h2 class="title is-4">Full Video</h2>
+	<iframe style='width:100%; height:500px;' src="https://www.youtube.com/embed/DVFbxol_mdA" title="YouTube video player" 
+	frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+	encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 class="title is-4">BibTeX</h2>
+<code class="codebox" id="bibtex"><pre>
+@inproceedings{bian2022nopenerf,
+	author    = {Wenjing Bian and Zirui Wang and Kejie Li and Jiawang Bian and Victor Adrian Prisacariu},
+	title     = {NoPe-NeRF: Optimising Neural Radiance Field with No Pose Prior},
+	journal   = {CVPR},
+	year      = {2023}
+	}
+   
+</main>
+</body>
+	
+</html>
