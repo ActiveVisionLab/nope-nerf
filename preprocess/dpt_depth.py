@@ -39,8 +39,11 @@ def dpt_depth(cfg, depth_save_dir):
         img_name = img_list[idx]
         depth = DPT_model(img_normalised)
         np.savez(os.path.join(depth_save_dir, 'depth_{}.npz'.format(img_name.split('.')[0])), pred=depth.detach().cpu())
-        imageio.imwrite(os.path.join(depth_save_dir, '{}.png'.format(img_name.split('.')[0])), depth[0].detach().cpu())
-        
+        depth_array = depth[0].detach().cpu().numpy()
+        imageio.imwrite(os.path.join(
+            depth_save_dir, 
+            '{}.png'.format(img_name.split('.')[0])), 
+            np.clip(255.0 / depth_array.max() * (depth_array - depth_array.min()), 0, 255).astype(np.uint8))        
  
                                                                 
 if __name__=='__main__':
