@@ -112,7 +112,7 @@ class Extract_Images(object):
         filename = os.path.join(depth_out_dir, '{}.npy'.format(img_idx))
         np.save(filename, depth_out)
         
-        depth_out == (depth_out * 200).astype(np.uint8)
+        depth_out = (np.clip(255.0 / depth_out.max() * (depth_out - depth_out.min()), 0, 255)).astype(np.uint8)
         
         imageio.imwrite(os.path.join(img_out_dir, str(img_idx).zfill(4) + '.png'), img_out)
         imageio.imwrite(os.path.join(depth_out_dir, str(img_idx).zfill(4) + '.png'), depth_out)

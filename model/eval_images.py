@@ -112,7 +112,7 @@ class Eval_Images(object):
             os.makedirs(img_gt_dir)
 
         
-        depth_out == (depth_out * 200).astype(np.uint8)
+        depth_out = (np.clip(255.0 / depth_out.max() * (depth_out - depth_out.min()), 0, 255)).astype(np.uint8)
         img_out = (img_out.cpu().numpy() * 255).astype(np.uint8)
         img_gt = (img_gt.cpu().numpy() * 255).astype(np.uint8)
         imageio.imwrite(os.path.join(img_out_dir, str(img_idx).zfill(4) + '.png'), img_out)

@@ -133,7 +133,8 @@ class Trainer(object):
             rgb_pred = rgb_pred.view(h, w, 3).detach().cpu().numpy()
             img_out = (rgb_pred * 255).astype(np.uint8)
             depth_pred_out = depth_pred.view(h, w).detach().cpu().numpy()
-            imageio.imwrite(os.path.join(out_render_path,'%04d_depth.png'% img_idx), depth_pred_out)
+            imageio.imwrite(os.path.join(out_render_path,'%04d_depth.png'% img_idx), 
+            np.clip(255.0 / depth_pred_out.max() * (depth_pred_out - depth_pred_out.min()), 0, 255).astype(np.uint8))
             
             img1 = Image.fromarray(
                 (img_out).astype(np.uint8)
