@@ -52,7 +52,7 @@ depth:
   invert: True
   freeze: True
 pose:
-  learn_pose: False
+  learn_pose: True
   learn_R: True
   learn_t: True
   init_pose: False
