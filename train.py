@@ -195,7 +195,9 @@ def train(cfg):
     log_scale_shift_per_view = cfg['training']['log_scale_shift_per_view']
     scale_dict = {}
     shift_dict = {}
-    gt_poses = train_dataset['img'].c2ws.to(device)
+    # load gt poses for evaluation
+    if eval_pose_every>0:
+        gt_poses = train_dataset['img'].c2ws.to(device) 
     # for epoch_it in tqdm(range(epoch_start+1, exit_after), desc='epochs'):
     while epoch_it < (scheduling_start + scheduling_epoch):
         epoch_it +=1

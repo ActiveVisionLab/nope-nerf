@@ -1,0 +1,15 @@
+depth:
+  type: None
+pose:
+  learn_pose: True
+dataloading:
+  path: data/Test
+  scene: ['images']
+  load_colmap_poses: False
+  customized_focal: True
+training:
+  out_dir:  out/Test/images
+  auto_scheduler: True
+  eval_pose_every: -1
+extract_images:
+  resolution: [540, 960]

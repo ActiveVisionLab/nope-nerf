@@ -35,7 +35,8 @@ Our pre-processed Tanks and Temples data contains the 8 scenes shown in the pape
 We also provide config file for NeRF LLFF dataset. You can download the dataset and unzip it to `data` directory. One example of the config file is `configs/LLFF/fern.yaml`. 
 
 
-3. If you want to use your own image sequence with customised camera intrinsics, you need to set the `cfg['dataloading']['customized_focal']` in the config file to `True` and add an `intrinsics.npz` file to the scene directory.
+3. If you want to use your own image sequence with customised camera intrinsics, you need to add an `intrinsics.npz` file to the scene directory. One example of the config file is `configs/Test/images.yaml` (please add your own data to the `data/Test/images` directory). 
+
 
 
 Monocular depth map generation: you can first download the pre-trained DPT model from [this link](https://drive.google.com/file/d/1dgcJEYYw1F8qirXhZxgNK8dWWz_8gZBD/view?usp=sharing) provided by [Vision Transformers for Dense Prediction](https://github.com/isl-org/DPT) to `DPT` directory, then run

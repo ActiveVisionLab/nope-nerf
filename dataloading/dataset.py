@@ -79,6 +79,7 @@ class DataField(object):
 
         imgs = np.moveaxis(imgs, -1, 0).astype(np.float32)
         imgs = np.transpose(imgs, (0, 3, 1, 2))
+        _, _, h, w = imgs.shape
 
         if customized_focal:
             focal_gt = np.load(os.path.join(load_dir, 'intrinsics.npz'))['K'].astype(np.float32)
@@ -87,11 +88,15 @@ class DataField(object):
             fx = focal_gt[0, 0] / resize_factor
             fy = focal_gt[1, 1] / resize_factor
         else:
-            fx, fy = focal, focal
+            if load_colmap_poses:
+                fx, fy = focal, focal
+            else:
+                print('No focal provided, use image size as default')
+                fx, fy = w, h
         fx = fx / focal_crop_factor
         fy = fy / focal_crop_factor
         
-        _, _, h, w = imgs.shape
+        
         self.H, self.W, self.focal = h, w, fx
         self.K = np.array([[2*fx/w, 0, 0, 0], 
             [0, -2*fy/h, 0, 0],
@@ -112,7 +117,10 @@ class DataField(object):
             c2ws_gt = torch.from_numpy(c2ws_gt)
             c2ws = c2ws_gt @ T
         else:
-            c2ws = c2ws_colmap
+            if load_colmap_poses:
+                c2ws = c2ws_colmap
+            else:
+                c2ws = None
         
         
         self.N_imgs_train = len(i_train)
@@ -121,36 +129,26 @@ class DataField(object):
         pred_depth_path = os.path.join(load_dir, depth_net)
         self.dpt_depth = None
         if mode in ('train','eval_trained', 'render'):
-            self.imgs = imgs[i_train]
-            self.c2ws = c2ws[i_train]
-            self.N_imgs = len(i_train)
-            if load_colmap_poses:
-                self.c2ws_colmap = c2ws_colmap[i_train]
-            if not use_DPT:
-                self.dpt_depth = load_depths_npz(image_list_train, pred_depth_path, norm=norm_depth)
-            if with_depth:
-                self.depth = load_gt_depths(image_list_train, load_dir, crop_ratio=crop_ratio)
+            idx_list = i_train
             self.img_list = image_list_train
         elif mode=='eval':
-            self.imgs = imgs[i_test]
-            self.c2ws = c2ws[i_test]
-            if load_colmap_poses:
-                self.c2ws_colmap = c2ws_colmap[i_test]
-            if with_depth:
-                self.depth = load_gt_depths(image_list_test, load_dir, crop_ratio=crop_ratio)
-            self.N_imgs = len(i_test)
+            idx_list = i_test
             self.img_list = image_list_test
         elif mode=='all':
-            self.imgs = imgs
-            self.c2ws = c2ws
-            if load_colmap_poses:
-                self.c2ws_colmap = c2ws_colmap
-            self.N_imgs = len(i_train) + len(i_test)
-            if not use_DPT:
-                self.dpt_depth = load_depths_npz(img_names, pred_depth_path,  norm=norm_depth)
-            if with_depth:
-                self.depth = load_gt_depths(img_names, load_dir, crop_ratio=crop_ratio)
+            idx_list = ids
             self.img_list = img_names
+
+        self.imgs = imgs[idx_list]
+        self.N_imgs = len(idx_list)
+        if c2ws is not None:
+            self.c2ws = c2ws[idx_list]
+        if load_colmap_poses:
+            self.c2ws_colmap = c2ws_colmap[i_train]
+        if not use_DPT:
+            self.dpt_depth = load_depths_npz(image_list_train, pred_depth_path, norm=norm_depth)
+        if with_depth:
+            self.depth = load_gt_depths(image_list_train, load_dir, crop_ratio=crop_ratio)
+        
 
        
 
