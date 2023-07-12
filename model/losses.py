@@ -188,7 +188,7 @@ class Loss(nn.Module):
             depth_consistency_loss = torch.tensor(0.0).cuda().float()
         
 
-        if (weights['rgb_weight']!=0.0) or (['depth_weight'] !=0.0):
+        if (weights['rgb_weight']!=0.0) or (weights['depth_weight'] !=0.0):
             rgb_l2_mean = F.mse_loss(rgb_pred, rgb_gt)
         else:
             rgb_l2_mean =  torch.tensor(0.0).cuda().float()
