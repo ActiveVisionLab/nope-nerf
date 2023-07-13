@@ -4,6 +4,6 @@ dataloading:
   path: data/nerf_llff_data
   scene: ['fern']
   resize_factor: 
-  generate_dpt: True
+  load_colmap_poses: False
 training:
   mode: 'all'

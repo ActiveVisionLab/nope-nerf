@@ -22,7 +22,6 @@ dataloading:
   customized_focal: False #use focal other than colmap
   resize_factor: 
   depth_net: dpt
-  generate_dpt: False
   crop_size: 0
   random_ref: 1
   norm_depth: False
