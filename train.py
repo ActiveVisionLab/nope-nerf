@@ -124,7 +124,7 @@ def train(cfg):
         epoch_it = load_dict.get('epoch_it', -1)
         if not auto_scheduler:
             scheduler_distortion = torch.optim.lr_scheduler.MultiStepLR(optimizer_distortion, 
-                                                                    milestones=list(range(scheduling_start, 10000+scheduling_start, 100)),
+                                                                    milestones=list(range(scheduling_start, scheduling_epoch+scheduling_start, 100)),
                                                                     gamma=cfg['training']['scheduler_gamma_distortion'], last_epoch=epoch_it)
     else:
         optimizer_distortion = None
