@@ -71,7 +71,7 @@ To evaluate depth: add `--depth` . Note that you need to add ground truth depth 
 ```
 python evaluation/eval_poses.py configs/Tanks/Ignatius.yaml
 ```
-To visualise trajectory: add `--vis` 
+To visualise estimated & ground truth trajectories: add `--vis` 
 
 
 ## More Visualisations
@@ -79,7 +79,10 @@ Novel view synthesis
 ```
 python vis/render.py configs/Tanks/Ignatius.yaml
 ```
-
+Pose visualisation (estimated trajectory only)
+```
+python vis/vis_poses.py configs/Tanks/Ignatius.yaml
+```
 
 
 ## Acknowledgement
