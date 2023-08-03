@@ -1,0 +1,17 @@
+depth:
+  type: None
+pose:
+  learn_R: False
+  learn_t: False
+  init_pose: True
+  init_pose_type: gt
+dataloading:
+  path: data/Tanks
+  scene: ['Ignatius']
+training:
+  out_dir:  out/Tanks/Ignatius_nerf
+  auto_scheduler: False
+  scheduling_start: 0
+  annealing_epochs: 0
+extract_images:
+  resolution: [540, 960]
