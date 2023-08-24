@@ -301,7 +301,7 @@ class Trainer(object):
                 Rt_rel_12 = ref_Rt @ torch.inverse(world_mat)
                 R_rel_12 = Rt_rel_12[:, :3, :3]
                 t_rel_12 = Rt_rel_12[:, :3, 3]  
-                scale1 = scale_input 
+                scale2 = scale_ref
             else:
                 d1 = depth_ref
                 d2 = depth_input
@@ -310,7 +310,7 @@ class Trainer(object):
                 Rt_rel_12 =  world_mat @ torch.inverse(ref_Rt)
                 R_rel_12 = Rt_rel_12[:, :3, :3]
                 t_rel_12 = Rt_rel_12[:, :3, 3] 
-                scale1 = scale_ref
+                scale2 = scale_input
 
             ratio = self.pc_ratio
             sample_resolution = (int(h_depth/ratio), int(w_depth/ratio))
@@ -352,11 +352,13 @@ class Trainer(object):
                     ).convert("RGB").save(
                         os.path.join(out_render_path, '%d_%04d_img2.png' % (it, img_idx))
                     )
+            # Update: transform point cloud before scaling
+            pc1 = pc1 @ R_rel_12.transpose(1,2) + t_rel_12
             if self.scale_pcs:
-                pc1 = pc1 / scale1
-                pc2 = pc2 / scale1
+                pc1 = pc1 / scale2
+                pc2 = pc2 / scale2
             
-            kwargs['X'] = pc1 @ R_rel_12.transpose(1,2) + t_rel_12
+            kwargs['X'] = pc1
             kwargs['Y'] = pc2
 
             kwargs['sample_resolution'] = sample_resolution
